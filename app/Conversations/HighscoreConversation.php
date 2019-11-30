@@ -9,6 +9,7 @@ class HighscoreConversation extends Conversation
 {
     /**
      * Start the conversation.
+     * coba gitnya apa bisa atau enggak
      *
      * @return mixed
      */
