@@ -58,7 +58,7 @@ class QuizConversation extends Conversation
         $this->ask($question, function (Answer $answer) {
             if ($answer->getValue() > '0') {
                 $this->say("Perfect!");
-                return $this->showInfo($answer->getValue());//$this->bot->startConversation(new QuizConversation());
+                $this->showInfo($answer->getValue());//$this->bot->startConversation(new QuizConversation());
             }else{
                 $this->say("😒");
                 $this->say("If you change your opinion, you can start the quiz at any time using the start command or by typing /quiz");
@@ -70,11 +70,11 @@ class QuizConversation extends Conversation
     {
         $tipeQuestionc =  TipeQuestion::find($tipe);
         $this->say("hai ".$tipeQuestionc->tipe());
-        $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
-        $this->questionCount = $this->quizQuestions->count();
-        $this->quizQuestions = $this->quizQuestions->keyBy('id');
-        $this->say("You will be shown ' . $this->questionCount . ' questions about '". $tipeQuestionc->tipe() ."'. Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
-        $this->checkForNextQuestion();
+        // $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
+        // $this->questionCount = $this->quizQuestions->count();
+        // $this->quizQuestions = $this->quizQuestions->keyBy('id');
+        // $this->say("You will be shown ' . $this->questionCount . ' questions about '". $tipeQuestionc->tipe() ."'. Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
+        // $this->checkForNextQuestion();
     }
 
     private function checkForNextQuestion()

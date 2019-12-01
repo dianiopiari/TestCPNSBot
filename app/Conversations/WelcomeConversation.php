@@ -37,10 +37,12 @@ class WelcomeConversation extends Conversation
 		if ($answer->getValue() == 'yes') {
 			$this->say("Perfect!");
 			return $this->bot->startConversation(new QuizConversation());
-		}
+		}else{
+            $this->say("😒");
+		$this->say("If you change your opinion, you can start the quiz at any time using the start command or by typing /quiz");
+        }
 
-		$this->say("😒");
-		$this->say("If you change your opinion, you can start the quiz at any time using the start command or by typing /startquiz");
+
 	});
     }
 }
