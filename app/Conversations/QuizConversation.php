@@ -69,10 +69,11 @@ class QuizConversation extends Conversation
     private function showInfo(String $tipe)
     {
         $tipeQuestionc =  TipeQuestion::find($tipe);
+        $this->say("hai ".$tipeQuestionc->tipe());
         $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
         $this->questionCount = $this->quizQuestions->count();
         $this->quizQuestions = $this->quizQuestions->keyBy('id');
-        $this->say("You will be shown ' . $this->questionCount . ' questions about '". $tipe->tipe() ."'. Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
+        $this->say("You will be shown ' . $this->questionCount . ' questions about '". $tipeQuestionc->tipe() ."'. Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
         $this->checkForNextQuestion();
     }
 
