@@ -50,13 +50,13 @@ class QuizConversation extends Conversation
     {
         $question = Question::create('Selamat Datang di Test CPNS Bot! Bot ini adalah solusi bagi Anda yang ingin belajar untuk Test CPNS ? Silahkan Pilih Test yang Diinginkan ?');
         $tipeQuestions = TipeQuestion::all();
-        $question->addButton(Button::create("No")->value(0));
         foreach ($tipeQuestions as $tipeQuestion) {
             $question->addButton(Button::create($tipeQuestion->tipe)->value($tipeQuestion->id));
         }
+        $question->addButton(Button::create("No")->value('0'));
 
         $this->ask($question, function (Answer $answer) {
-            if ($answer->getValue() > '0') {
+            if ($answer->getValue() != '0') {
                 $this->say("Perfect!");
                 $this->showInfo($answer->getValue());//$this->bot->startConversation(new QuizConversation());
             }else{
@@ -68,8 +68,8 @@ class QuizConversation extends Conversation
 
     private function showInfo($tipe)
     {
-        $tipeQuestionc =  TipeQuestion::find($tipe);
-        $this->say("hai ".$tipeQuestionc->tipe());
+        //$tipeQuestionc =  TipeQuestion::find($tipe);
+        $this->say("hai ".$tipe);
         // $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
         // $this->questionCount = $this->quizQuestions->count();
         // $this->quizQuestions = $this->quizQuestions->keyBy('id');
