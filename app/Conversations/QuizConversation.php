@@ -44,7 +44,7 @@ class QuizConversation extends Conversation
     private function askIfReady()
     {
         $question = Question::create('Bot ini adalah solusi bagi Anda yang ingin belajar untuk Test CPNS ? Silahkan Pilih Materi Test yang Diinginkan ?');
-        $tipeQuestions = TipeQuestion::all();
+        $tipeQuestions = TipeQuestion::where('status',0)->get();
         foreach ($tipeQuestions as $tipeQuestion) {
             $question->addButton(Button::create($tipeQuestion->tipe)->value($tipeQuestion->id));
         }
