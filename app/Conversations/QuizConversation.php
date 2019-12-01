@@ -37,11 +37,6 @@ class QuizConversation extends Conversation
 
     public function run()
     {
-        //$this->showInfo();
-        // $this->quizQuestions = QuestionQuiz::all()->shuffle();
-        // $this->questionCount = $this->quizQuestions->count();
-        // $this->quizQuestions = $this->quizQuestions->keyBy('id');
-        // $this->showInfo();
         $this->say("Hey ".$this->bot->getUser()->getFirstName()." 👋 ");
         $this->askIfReady();
     }
@@ -69,7 +64,7 @@ class QuizConversation extends Conversation
     private function showInfo($tipe)
     {
         $tipeQuestionc =  TipeQuestion::find($tipe);
-        $this->quizQuestions = QuestionQuiz::where('tipe_id',$tipe)->get()->shuffle();
+        $this->quizQuestions = QuestionQuiz::where('tipe_id',$tipe)->limit(20)->get()->shuffle();
         $this->questionCount = $this->quizQuestions->count();
         $this->quizQuestions = $this->quizQuestions->keyBy('id');
         $this->say("Akan Ada ' . $this->questionCount . ' pertanyaan tentang materi ". $tipeQuestionc->tipe ." Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
