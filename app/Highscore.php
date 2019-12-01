@@ -42,4 +42,10 @@ class Highscore extends Model
     {
         Highscore::where('chat_id', $chatId)->delete();
     }
+
+    public static function topUsersPerTipe($tipeQuestion)
+    {
+        return static::query()->where('tipe_id',$tipeQuestion)->orderByDesc('points')->take(10)->get();
+    }
+
 }

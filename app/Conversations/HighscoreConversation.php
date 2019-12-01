@@ -23,16 +23,20 @@ class HighscoreConversation extends Conversation
         $topUsers = Highscore::topUsers();
 
         if (!$topUsers->count()) {
-            return $this->say("Papan Skor Masih Koson. Jadilah yang Pertama! 👍");
+            return $this->say("Papan Skor Masih Kosong. Jadilah yang Pertama! 👍");
         }
-
-        $topUsers->transform(function ($user) {
-           // return "{$user->getRank()} - {$user->name} {$user->points} points";
-           return "{{$user->name} {$user->points} points";
-        });
 
         $this->say("Berikut adalah skor tertinggi saat ini. Apakah Anda pikir Anda bisa lebih baik? Mulai ikuti kuis: /quiz");
         $this->say("🏆 HIGHSCORE 🏆");
-        $this->say($topUsers->implode("\n"));
+        $tipeQuestions = TipeQuestion::where('status',0)->get();
+        foreach ($tipeQuestions as $tipeQuestion) {
+            $topUsers = Highscore::topUsersPerTipe($tipeQuestion->id);
+            $topUsers->transform(function ($user) {
+                return "{{$user->name} {$user->points} points";
+             });
+            $this->say("Skor Tertinggi untuk materi ".$tipeQuestion->tipe);
+            $this->say($topUsers->implode("\n"));
+        }
+
     }
 }
