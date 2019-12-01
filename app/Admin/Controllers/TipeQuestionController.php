@@ -28,6 +28,11 @@ class TipeQuestionController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('tipe', __('Tipe'));
+        $states = [
+            'off' => ['value' => 0, 'text' => 'enable', 'color' => 'success'],
+            'on' => ['value' => 1, 'text' => 'disable', 'color' => 'danger'],
+        ];
+        $grid->column('status', __('status'))->switch($states);
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -62,6 +67,13 @@ class TipeQuestionController extends AdminController
         $form = new Form(new TipeQuestion);
 
         $form->text('tipe', __('Tipe'));
+        //$form->select('tipe', __('Tipe'))->options([1 => 'foo', 2 => 'bar', 'val' => 'Option name']);
+        $states = [
+            'off' => ['value' => 0, 'text' => 'enable', 'color' => 'success'],
+            'on' => ['value' => 1, 'text' => 'disable', 'color' => 'danger'],
+        ];
+
+        $form->switch('status', __('Status'))->states($states);
 
         return $form;
     }

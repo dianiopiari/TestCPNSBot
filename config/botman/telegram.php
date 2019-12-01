@@ -11,5 +11,5 @@ return [
     | the chatbot through Telegram.
     |
     */
-    'token' => '1044642893:AAEHswjb8i_9oERPHTsp4XQqSKR_onPdi5Y',
+    'token' => env('TELEGRAM_TOKEN'),
 ];
