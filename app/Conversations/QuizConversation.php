@@ -35,6 +35,9 @@ class QuizConversation extends Conversation
     /** @var integer */
     protected $currentQuestion = 1;
 
+    /** @var integer */
+    protected $tipeQuestion = 0;
+
     public function run()
     {
         //$this->say("Hey ".$this->bot->getUser()->getFirstName()." 👋 ");
@@ -64,6 +67,7 @@ class QuizConversation extends Conversation
     private function showInfo($tipe)
     {
         $tipeQuestionc =  TipeQuestion::find($tipe);
+        $this->tipeQuestion = $tipe;
         $this->quizQuestions = QuestionQuiz::where('tipe_id',$tipe)->limit(20)->get()->shuffle();
         $this->questionCount = $this->quizQuestions->count();
         $this->quizQuestions = $this->quizQuestions->keyBy('id');
@@ -138,8 +142,8 @@ class QuizConversation extends Conversation
         $this->ask($question, function (Answer $answer) {
             switch ($answer->getValue()) {
                 case 'yes':
-                    $user = Highscore::saveUser($this->bot->getUser(), $this->userPoints, $this->userCorrectAnswers);
-                    $this->say("Selesai. Ranking Anda {$user->getRank()}.");
+                    $user = Highscore::saveUser($this->bot->getUser(), $this->userPoints, $this->userCorrectAnswers, $this->tipeQuestion);
+                    $this->say("Selesai. Ranking Anda {$user->getRank($this->tipeQuestion)}.");
                     return $this->bot->startConversation(new HighscoreConversation());
                 case 'no':
                     return $this->say("Tidak masalah. Anda tidak ditambahkan ke papan skor. Anda masih bisa memberi tahu teman Anda tentang hal itu 😉");

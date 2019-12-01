@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Highscore extends Model
 {
-    protected $fillable = ['chat_id', 'name', 'points', 'correct_answers', 'tries', 'rank'];
+    protected $fillable = ['tipe_id', 'chat_id', 'name', 'points', 'correct_answers', 'tries', 'rank'];
     protected $table = 'highscore';
 
-    public static function saveUser(UserInterface $botUser, int $userPoints, int $userCorrectAnswers)
+    public static function saveUser(UserInterface $botUser, int $userPoints, int $userCorrectAnswers, int $tipeQuestion)
     {
         //$rank = Highscore::getRank();
         $user = static::updateOrCreate(['chat_id' => $botUser->getId()], [
             'chat_id' => $botUser->getId(),
             'name' => $botUser->getFirstName() . ' ' . $botUser->getLastName(),
             'points' => $userPoints,
+            'tipe_id' => $tipeQuestion,
             'correct_answers' => $userCorrectAnswers,
         ]);
 
@@ -27,14 +28,14 @@ class Highscore extends Model
         return $user;
     }
 
-    public function getRank()
+    public function getRank($tipeQuestion)
     {
-        return static::query()->where('points', '>', $this->points)->pluck('points')->unique()->count() + 1;
+        return static::query()->where('points', '>', $this->points)->where('tipe_id',$tipeQuestion)->pluck('points')->unique()->count() + 1;
     }
 
-    public static function topUsers($size = 10)
+    public static function topUsers()
     {
-        return static::query()->orderByDesc('points')->take($size)->get();
+        return static::query()->orderByDesc('points')->take(10)->get();
     }
 
     public static function deleteUser(string $chatId)

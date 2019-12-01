@@ -27,7 +27,8 @@ class HighscoreConversation extends Conversation
         }
 
         $topUsers->transform(function ($user) {
-            return "{$user->getRank()} - {$user->name} {$user->points} points";
+           // return "{$user->getRank()} - {$user->name} {$user->points} points";
+           return "{{$user->name} {$user->points} points";
         });
 
         $this->say("Berikut adalah skor tertinggi saat ini. Apakah Anda pikir Anda bisa lebih baik? Mulai ikuti kuis: /quiz");
