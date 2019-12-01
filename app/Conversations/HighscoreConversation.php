@@ -33,10 +33,11 @@ class HighscoreConversation extends Conversation
         foreach ($tipeQuestions as $tipeQuestion) {
             $topUsers = Highscore::topUsersPerTipe($tipeQuestion->id);
             $topUsers->transform(function ($user) {
-                return "{{$user->name} {$user->points} points";
+                //return "{{$user->name} {$user->points} points";
+                return "{$user->getRank($user->tipe_id)} - {$user->name} {$user->points} points";
              });
-            $this->say("Skor Tertinggi untuk materi ".$tipeQuestion->tipe);
-           $this->say($topUsers->implode("\n"));
+            //$this->say();
+           $this->say("Skor Tertinggi untuk materi ".$tipeQuestion->tipe." \n ".$topUsers->implode("\n"));
         }
 
     }
