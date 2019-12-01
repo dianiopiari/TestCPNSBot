@@ -68,8 +68,8 @@ class QuizConversation extends Conversation
 
     private function showInfo($tipe)
     {
-        //$tipeQuestionc =  TipeQuestion::find($tipe);
-        $this->say("hai ".$tipe);
+        $tipeQuestionc =  TipeQuestion::find($tipe);
+        $this->say("hai ".$tipe."-".$tipeQuestionc->tipe);
         // $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
         // $this->questionCount = $this->quizQuestions->count();
         // $this->quizQuestions = $this->quizQuestions->keyBy('id');
