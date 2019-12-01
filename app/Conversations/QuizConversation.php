@@ -66,7 +66,7 @@ class QuizConversation extends Conversation
         });
     }
 
-    private function showInfo(String $tipe)
+    private function showInfo($tipe)
     {
         $tipeQuestionc =  TipeQuestion::find($tipe);
         $this->say("hai ".$tipeQuestionc->tipe());
