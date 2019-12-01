@@ -37,7 +37,7 @@ class HighscoreConversation extends Conversation
                 return "{$user->getRank($user->tipe_id)} - {$user->name} {$user->points} points";
              });
             //$this->say();
-           $this->say("Skor Tertinggi untuk materi <b>".$tipeQuestion->tipe."</b> \n".$topUsers->implode("\n"));
+           $this->say("Skor Tertinggi untuk materi <b>".$tipeQuestion->tipe."</b>".$topUsers->implode("\n"));
         }
 
     }
