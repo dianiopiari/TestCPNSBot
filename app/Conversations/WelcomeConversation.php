@@ -27,7 +27,7 @@ class WelcomeConversation extends Conversation
 
     private function askIfReady()
     {
-	$question = Question::create('~ Test CPNS ChatBot ~ Are you ready for the quiz?')
+	$question = Question::create('Selamat Datang di Test CPNS Botchat!  Sudah siap untuk mengikuti Quiz ini ?')
 		->addButtons([
 			Button::create('Ashiap...!')->value('yes'),
 			Button::create('Enggak Ah, Males')->value('no'),
@@ -35,7 +35,7 @@ class WelcomeConversation extends Conversation
 
 	$this->ask($question, function (Answer $answer) {
 		if ($answer->getValue() == 'yes') {
-			$this->say("Perfect!");
+			//$this->say("Perfect!");
 			return $this->bot->startConversation(new QuizConversation());
 		}else{
             $this->say(":(");

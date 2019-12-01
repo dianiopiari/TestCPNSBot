@@ -43,7 +43,7 @@ class QuizConversation extends Conversation
 
     private function askIfReady()
     {
-        $question = Question::create('Selamat Datang di Test CPNS Bot! Bot ini adalah solusi bagi Anda yang ingin belajar untuk Test CPNS ? Silahkan Pilih Materi Test yang Diinginkan ?');
+        $question = Question::create('Bot ini adalah solusi bagi Anda yang ingin belajar untuk Test CPNS ? Silahkan Pilih Materi Test yang Diinginkan ?');
         $tipeQuestions = TipeQuestion::all();
         foreach ($tipeQuestions as $tipeQuestion) {
             $question->addButton(Button::create($tipeQuestion->tipe)->value($tipeQuestion->id));
@@ -52,7 +52,7 @@ class QuizConversation extends Conversation
 
         $this->ask($question, function (Answer $answer) {
             if ($answer->getValue() != '0') {
-                $this->say("Perfect!");
+                //$this->say("Perfect!");
                 $this->showInfo($answer->getValue());//$this->bot->startConversation(new QuizConversation());
             }else{
                 $this->say("😒");
