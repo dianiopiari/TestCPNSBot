@@ -31,11 +31,11 @@ class HighscoreConversation extends Conversation
         $tipeQuestions = TipeQuestion::where('status',0)->get();
         foreach ($tipeQuestions as $tipeQuestion) {
             $topUsers = Highscore::topUsersPerTipe($tipeQuestion->id);
-            $topUsers->transform(function ($user) {
-                return "{{$user->name} {$user->points} points";
-             });
+            // $topUsers->transform(function ($user) {
+            //     return "{{$user->name} {$user->points} points";
+            //  });
             $this->say("Skor Tertinggi untuk materi ".$tipeQuestion->tipe);
-            $this->say($topUsers->implode("\n"));
+           // $this->say($topUsers->implode("\n"));
         }
 
     }
