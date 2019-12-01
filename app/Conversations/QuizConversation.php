@@ -5,6 +5,7 @@ namespace App\Conversations;
 use App\AnswerQuiz;
 use App\Highscore;
 use App\QuestionQuiz;
+use App\TipeQuestion;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -37,15 +38,41 @@ class QuizConversation extends Conversation
     public function run()
     {
         //$this->showInfo();
-        $this->quizQuestions = QuestionQuiz::all()->shuffle();
-        $this->questionCount = $this->quizQuestions->count();
-        $this->quizQuestions = $this->quizQuestions->keyBy('id');
-        $this->showInfo();
+        // $this->quizQuestions = QuestionQuiz::all()->shuffle();
+        // $this->questionCount = $this->quizQuestions->count();
+        // $this->quizQuestions = $this->quizQuestions->keyBy('id');
+        // $this->showInfo();
+        $this->say("Hey ".$this->bot->getUser()->getFirstName()." 👋 ");
+        $this->askIfReady();
     }
 
-    private function showInfo()
+    private function askIfReady()
     {
-        $this->say("You will be shown ' . $this->questionCount . ' questions about Laravel. Every correct answer will reward you with a certain amount of points. Please keep it fair and don\'t use any help. All the best! 🍀");
+        $question = Question::create('Selamat Datang di Test CPNS Bot! Bot ini adalah solusi bagi Anda yang ingin belajar untuk Test CPNS ? Silahkan Pilih Test yang Diinginkan ?');
+        $tipeQuestions = TipeQuestion::all();
+        $question->addButton(Button::create("No")->value(0));
+        foreach ($tipeQuestions as $tipeQuestion) {
+            $question->addButton(Button::create($tipeQuestion->tipe)->value($tipeQuestion->id));
+        }
+
+        $this->ask($question, function (Answer $answer) {
+            if ($answer->getValue() > '0') {
+                $this->say("Perfect!");
+                return $this->showInfo($answer->getValue());//$this->bot->startConversation(new QuizConversation());
+            }else{
+                $this->say("😒");
+                $this->say("If you change your opinion, you can start the quiz at any time using the start command or by typing /quiz");
+            }
+        });
+    }
+
+    private function showInfo(String $tipe)
+    {
+        $tipeQuestionc =  TipeQuestion::find($tipe);
+        $this->quizQuestions = QuestionQuiz::where('tipe_id','=',$tipe)->shuffle();
+        $this->questionCount = $this->quizQuestions->count();
+        $this->quizQuestions = $this->quizQuestions->keyBy('id');
+        $this->say("You will be shown ' . $this->questionCount . ' questions about '". $tipe->tipe() ."'. Setiap jawaban yang benar akan memberi Anda poin dalam jumlah tertentu. Harap jujur dan jangan gunakan bantuan apa pun. Lakukan yang terbaik! 🍀");
         $this->checkForNextQuestion();
     }
 
