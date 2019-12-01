@@ -37,7 +37,7 @@ class QuizConversation extends Conversation
 
     public function run()
     {
-        $this->say("Hey ".$this->bot->getUser()->getFirstName()." 👋 ");
+        //$this->say("Hey ".$this->bot->getUser()->getFirstName()." 👋 ");
         $this->askIfReady();
     }
 

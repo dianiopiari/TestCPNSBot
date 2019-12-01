@@ -27,10 +27,10 @@ class WelcomeConversation extends Conversation
 
     private function askIfReady()
     {
-	$question = Question::create('Welcome to the *LaravelQuiz Chatbot*! How well do you know your favourite PHP framework? Are you ready for the quiz?')
+	$question = Question::create('~ Test CPNS ChatBot ~ Are you ready for the quiz?')
 		->addButtons([
-			Button::create('Sure')->value('yes'),
-			Button::create('Not now')->value('no'),
+			Button::create('Ashiap...!')->value('yes'),
+			Button::create('Enggak Ah, Males')->value('no'),
 		]);
 
 	$this->ask($question, function (Answer $answer) {
@@ -39,7 +39,7 @@ class WelcomeConversation extends Conversation
 			return $this->bot->startConversation(new QuizConversation());
 		}else{
             $this->say(":(");
-		    $this->say("If you change your opinion, you can start the quiz at any time using the start command or by typing /quiz");
+		    $this->say("Jika Berubah Pikiran, Anda dapat memulai kuis kapan saja  dengan mengetik /quiz");
         }
 
 
